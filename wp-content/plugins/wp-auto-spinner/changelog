@@ -1,0 +1,55 @@
+@10/11/2014 v3.0.2
+Fix : some users got license inactive issue this updated should fix this one.
+New : nospin tag
+
+
+v 3.0.1 @28/9/2014
+Fix : synonyms disapear on click fixed 
+Fix : spin title in gui disabled 
+Fix : mb_strtoupper existince check
+Fix : execlude title words from spinning at spinrewriter added
+NEW : option to spin links texts
+NEW : disable content spinning option
+NEW : shuffle mode 
+NEW : Spin scheduled posts instantly
+NEW : curl exist check
+NEW : can send draft posts to the queue
+
+
+v 3.0.0 @13/3/2013
+Fixed: words starting with unicode 
+Added : spinning queue to manage server resources on cron job spin one post every 30 second
+Added : bulk spin
+Added : woo commerce support
+Added : custom post types support
+Added : option to enabe/disable on publish spinning action .
+Added : execlude post title words from spinning 
+Added : turkish support
+
+v 2.0.1 @25/12/2013
+Fix : links text now don't get spinned
+Fix : links now search non-gready
+Fix : preg_quote now prepare execluded words
+Fix : add slashes for settings 
+
+v2.0.0 @2/11/2013
+bug fix: capped letters now keep being capped
+New: custom treasures 
+New: 6 languages added
+New: Treasure editing
+New: UI for writing 
+New: Detailed Log
+New: Reserved words
+Improvement: spinning now on publish .
+
+Added: rating , update check 
+
+
+v1.0.1 @7-5-2013
+-bug fix : shortcode rewriting no more done .
+-mod: options flow layout changed i.e options.php
+-mod : link structure updated not to call plugin file ajax.php directly but using wp parsing mechanism
+
+
+-v1.0.0
+-initial version 

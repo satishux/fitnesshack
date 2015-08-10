@@ -1,0 +1,90 @@
+#WFIPBLOCKS - Do not remove this line. Disable Web Caching in Wordfence to remove this data.
+Order Deny,Allow
+#Do not remove this line. Disable Web Caching in Wordfence to remove this data - WFIPBLOCKS
+#WFCACHECODE - Do not remove this line. Disable Web Caching in Wordfence to remove this data.
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon application/json
+	<IfModule mod_headers.c>
+		Header append Vary User-Agent env=!dont-vary
+	</IfModule>
+	<IfModule mod_mime.c>
+		AddOutputFilter DEFLATE js css htm html xml
+	</IfModule>
+</IfModule>
+<IfModule mod_mime.c>
+	AddType text/html .html_gzip
+	AddEncoding gzip .html_gzip
+	AddType text/xml .xml_gzip
+	AddEncoding gzip .xml_gzip
+</IfModule>
+<IfModule mod_setenvif.c>
+	SetEnvIfNoCase Request_URI \.html_gzip$ no-gzip
+	SetEnvIfNoCase Request_URI \.xml_gzip$ no-gzip
+</IfModule>
+<IfModule mod_headers.c>
+	Header set Vary "Accept-Encoding, Cookie"
+</IfModule>
+<IfModule mod_rewrite.c>
+	#Prevents garbled chars in cached files if there is no default charset.
+	AddDefaultCharset utf-8
+
+	#Cache rules:
+	RewriteEngine On
+	RewriteBase /
+	RewriteCond %{HTTPS} on
+	RewriteRule .* - [E=WRDFNC_HTTPS:_https]
+	RewriteCond %{HTTP:Accept-Encoding} gzip
+	RewriteRule .* - [E=WRDFNC_ENC:_gzip]
+	RewriteCond %{REQUEST_METHOD} !=POST
+	RewriteCond %{HTTPS} off
+	RewriteCond %{QUERY_STRING} ^(?:\d+=\d+)?$
+	RewriteCond %{REQUEST_URI} (?:\/|\.html)$ [NC]
+	
+	RewriteCond %{HTTP_COOKIE} !(comment_author|wp\-postpass|wf_logout|wordpress_logged_in|wptouch_switch_toggle|wpmp_switcher) [NC]
+	
+	RewriteCond %{REQUEST_URI} \/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)(.*)$
+	RewriteCond "%{DOCUMENT_ROOT}/wp-content/wfcache/%{HTTP_HOST}_%1/%2~%3~%4~%5~%6_wfcache%{ENV:WRDFNC_HTTPS}.html%{ENV:WRDFNC_ENC}" -f
+	RewriteRule \/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)(.*)$ "/wp-content/wfcache/%{HTTP_HOST}_$1/$2~$3~$4~$5~$6_wfcache%{ENV:WRDFNC_HTTPS}.html%{ENV:WRDFNC_ENC}" [L]
+</IfModule>
+#Do not remove this line. Disable Web caching in Wordfence to remove this data - WFCACHECODE
+
+# BEGIN W3TC Browser Cache
+<IfModule mod_deflate.c>
+    <IfModule mod_headers.c>
+        Header append Vary User-Agent env=!dont-vary
+    </IfModule>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon application/json
+    <IfModule mod_mime.c>
+        # DEFLATE by extension
+        AddOutputFilter DEFLATE js css htm html xml
+    </IfModule>
+    </IfModule>
+</IfModule>
+<FilesMatch "\.(css|htc|less|js|js2|js3|js4|CSS|HTC|LESS|JS|JS2|JS3|JS4)$">
+    <IfModule mod_headers.c>
+         Header set X-Powered-By "W3 Total Cache/0.9.4.1"
+    </IfModule>
+</FilesMatch>
+<FilesMatch "\.(html|htm|rtf|rtx|svg|svgz|txt|xsd|xsl|xml|HTML|HTM|RTF|RTX|SVG|SVGZ|TXT|XSD|XSL|XML)$">
+    <IfModule mod_headers.c>
+         Header set X-Powered-By "W3 Total Cache/0.9.4.1"
+    </IfModule>
+</FilesMatch>
+<FilesMatch "\.(asf|asx|wax|wmv|wmx|avi|bmp|class|divx|doc|docx|eot|exe|gif|gz|gzip|ico|jpg|jpeg|jpe|json|mdb|mid|midi|mov|qt|mp3|m4a|mp4|m4v|mpeg|mpg|mpe|mpp|otf|odb|odc|odf|odg|odp|ods|odt|ogg|pdf|png|pot|pps|ppt|pptx|ra|ram|svg|svgz|swf|tar|tif|tiff|ttf|ttc|wav|wma|wri|woff|xla|xls|xlsx|xlt|xlw|zip|ASF|ASX|WAX|WMV|WMX|AVI|BMP|CLASS|DIVX|DOC|DOCX|EOT|EXE|GIF|GZ|GZIP|ICO|JPG|JPEG|JPE|JSON|MDB|MID|MIDI|MOV|QT|MP3|M4A|MP4|M4V|MPEG|MPG|MPE|MPP|OTF|ODB|ODC|ODF|ODG|ODP|ODS|ODT|OGG|PDF|PNG|POT|PPS|PPT|PPTX|RA|RAM|SVG|SVGZ|SWF|TAR|TIF|TIFF|TTF|TTC|WAV|WMA|WRI|WOFF|XLA|XLS|XLSX|XLT|XLW|ZIP)$">
+    <IfModule mod_headers.c>
+         Header set X-Powered-By "W3 Total Cache/0.9.4.1"
+    </IfModule>
+</FilesMatch>
+# END W3TC Browser Cache
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
